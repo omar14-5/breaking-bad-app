@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_breaking/constants/my_colors.dart';
+import 'package:flutter_breaking/constants/strings.dart';
 import 'package:flutter_breaking/data/models/characters.dart';
 
 class CharacterItem extends StatelessWidget {
@@ -16,35 +17,42 @@ class CharacterItem extends StatelessWidget {
         color: Mycolors.mywhite,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: GridTile(
-        child: Container(
-          color: Mycolors.mygrey,
-          child: character.image.isNotEmpty
-              ? FadeInImage.assetNetwork(
-                  width: double.infinity,
-                  height: double.infinity,
-                  placeholder: 'assets/images/loading/gif',
-                  image: character.image,
-                  fit: BoxFit.cover,
-                )
-              : Image.asset('assets/images/plceholder.jpg'),
-        ),
-        footer: Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          color: Colors.black54,
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            '${character.name}',
-            style: TextStyle(
-              height: 1.3,
-              fontSize: 16,
-              color: Mycolors.mywhite,
-              fontWeight: FontWeight.bold,
+      child: InkWell(
+        onTap: () => Navigator.pushNamed(context, characterDetailsScreen,
+            arguments: character),
+        child: GridTile(
+          child: Hero(
+            tag: character.charId,
+            child: Container(
+              color: Mycolors.mygrey,
+              child: character.image.isNotEmpty
+                  ? FadeInImage.assetNetwork(
+                      width: double.infinity,
+                      height: double.infinity,
+                      placeholder: 'assets/images/loading.gif',
+                      image: character.image,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset('assets/images/plceholder.jpg'),
             ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
+          ),
+          footer: Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+            color: Colors.black54,
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              '${character.name}',
+              style: TextStyle(
+                height: 1.3,
+                fontSize: 16,
+                color: Mycolors.mywhite,
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ),

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_breaking/data/models/characters.dart';
+import 'package:flutter_breaking/data/models/quote.dart';
 import 'package:flutter_breaking/data/repository/charachters_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -18,5 +19,11 @@ class CharachtersCubit extends Cubit<CharachtersState> {
     });
 
     return characters;
+  }
+
+  void getQuotes(String charName) {
+    chararactersRepository.getCharacterQuotes(charName).then((quotes) {
+      emit(Quotesloaded(quotes));
+    });
   }
 }
